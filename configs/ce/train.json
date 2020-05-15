@@ -1,0 +1,76 @@
+{
+    "n_gpu": 1,
+    "seed": 0,
+    "experts": {
+        "text_feat": "learnable",
+        "text_feat_init":false,
+        "text_dim": 500,
+        "modalities": ["resnet", "attr"],
+        "ce_shared_dim": 512
+    },
+    "data_loader": {
+        "type": "ExpertDataLoader",
+        "args": {
+            "dataset_name": "CE",
+            "data_dir": "/data/yj/fashion-iq/dataset",
+            "categories": ["dress", "shirt", "toptee"],
+            "batch_size": 16,
+            "num_workers": 4,
+            "max_text_words": 30,
+            "max_expert_tokens":45,
+            "mode": "train",
+            "use_val": false
+        }
+    },
+    "arch": {
+        "type": "CENet",
+        "args": {
+            "backbone": "densenet",
+            "composition": "multi",
+            "target_comp": "cbpa",
+            "fusion": "mutan",
+            "attr_fusion": "mutan",
+            "norm_scale": 5.0,
+            "use_ce": true,
+            "use_film" : false,
+            "vlad_clusters": {
+                "text": 32,
+                "keypoint": 32,
+                "attr": 32
+            }
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": {
+        "type": "AdditiveMarginSoftmax",
+        "args":{
+            "margin": 0.3
+        }
+    },
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 1,
+            "gamma": 0.95
+        }
+    },
+    "trainer": {
+        "epochs": 100,
+        "save_dir": "/data1/common_datasets/fashion_save",
+        "save_period": 10,
+        "monitor": "max recall_avg",
+        "include_optim_in_ckpts": true,
+        "skip_first_n_saves": 0,
+        "num_keep_ckpts": 5,
+        "largest": false,
+        "val_epoch": 20,
+        "pretrain": 0
+    }
+}

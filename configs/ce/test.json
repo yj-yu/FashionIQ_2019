@@ -1,0 +1,38 @@
+{
+    "n_gpu": 1,
+    "seed": 0,
+    "experts": {
+        "text_feat": "learnable",
+        "text_feat_init": false,
+        "text_dim": 500,
+        "modalities": ["resnet", "vgg"],
+        "ce_shared_dim": 512
+    },
+    "data_loader": {
+        "type": "ExpertDataLoader",
+        "args": {
+            "dataset_name": "CE",
+            "data_dir": "/data/yj/fashion-iq/start_kit/data",
+            "categories": ["dress", "shirt", "toptee"],
+            "batch_size": 4,
+            "num_workers": 4,
+            "max_text_words": 30,
+            "mode": "test"
+        }
+    },
+    "arch": {
+        "type": "CENet",
+        "args": {
+            "composition": "tirg",
+            "use_ce": true,
+            "use_film": true,
+            "vlad_clusters": {
+                "text": 32
+            }
+        }
+    },
+    "tester": {
+        "save_dir": "data/saved/",
+        "largest": true
+    }
+}
