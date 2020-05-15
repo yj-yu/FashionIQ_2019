@@ -10,9 +10,9 @@ This project hosts the code for our paper.
 ## Training
 
 Please see the official starter code to download and prepare dataset. [Link to official baseline](https://github.com/XiaoxiaoGuo/fashion-iq/tree/master/start_kit)
-Prepare 256x256 resized images in dataset/resized_images , and modify configure files in config folder.
+Prepare 256x256 resized images in dataset/resized_images , and modify configure files in configs/ce folder.
 
-To reproduce single best model, we recommend to use W2V [Link](https://www.kaggle.com/jacksoncrow/word2vec-flickr30k/version/1) and set the path to the parameters. Pretraining also helps improve final performance.
+To reproduce the single best model, we recommend to use W2V [Link](https://www.kaggle.com/jacksoncrow/word2vec-flickr30k/version/1) and set the path to the parameters. Pretraining also helps improve the final performance.
 
 Train the model
 
