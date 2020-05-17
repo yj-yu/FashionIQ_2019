@@ -23,13 +23,21 @@ def test(config):
     if config['experts']['text_feat'] == 'learnable':
         # vocab
         vocab = Vocabulary()
-        vocab.load('/data1/common_datasets/fashion_data/captions/dict.all_200k_gan.json')
+        vocab.load('dataset/captions/dict.all_200k_gan.json')
         vocab_size = len(vocab)
 
         # word2vec
-        we_rootpath = '/home/yj/fashion-ret/start_kit/pretrained_model'
+        we_rootpath = '/home/yj/fashion-iq/pretrained_model'
         w2v_data_path = os.path.join(we_rootpath, "word2vec", 'flickr', 'vec500flickr30m')
         we_parameter = get_we_parameter(vocab, w2v_data_path)
+        if config['experts']['text_feat_init'] == True:
+            # word2vec, download file and move to we_root-path directory
+            # https://www.kaggle.com/jacksoncrow/word2vec-flickr30k/version/1
+            we_rootpath = '/home/yj/pretrained_model'
+            w2v_data_path = os.path.join(we_rootpath, "word2vec/", 'flickr', 'vec500flickr30m')
+            we_parameter = get_we_parameter(vocab, w2v_data_path)
+        else:
+            we_parameter = None
     else:
         vocab = None
         vocab_size = None
@@ -37,7 +45,7 @@ def test(config):
 
     if "attr" in config['experts']['modalities']:
         attr_vocab = Vocabulary()
-        attr_vocab.load('/data1/common_datasets/fashion_data/captions/dict.attr.json')
+        attr_vocab.load('dataset/captions/dict.attr.json')
         attr_vocab_size = len(attr_vocab)
     else:
         attr_vocab = None
