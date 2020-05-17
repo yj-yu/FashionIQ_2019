@@ -27,9 +27,6 @@ def test(config):
         vocab_size = len(vocab)
 
         # word2vec
-        we_rootpath = '/home/yj/fashion-iq/pretrained_model'
-        w2v_data_path = os.path.join(we_rootpath, "word2vec", 'flickr', 'vec500flickr30m')
-        we_parameter = get_we_parameter(vocab, w2v_data_path)
         if config['experts']['text_feat_init'] == True:
             # word2vec, download file and move to we_root-path directory
             # https://www.kaggle.com/jacksoncrow/word2vec-flickr30k/version/1
