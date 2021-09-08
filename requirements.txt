@@ -14,7 +14,7 @@ munch==2.5.0
 nltk==3.5
 numpy==1.18.1
 olefile==0.46
-Pillow==7.1.2
+Pillow==8.3.2
 pretrainedmodels==0.7.4
 pynvim==0.3.2
 regex==2020.5.14
